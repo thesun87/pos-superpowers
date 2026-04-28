@@ -5,8 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@pos/contracts", "@pos/domain", "@pos/ui"],
   experimental: {
-    typedRoutes: true,
-    instrumentationHook: true
+    typedRoutes: true
   }
 };
 
