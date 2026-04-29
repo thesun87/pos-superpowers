@@ -12,7 +12,7 @@ Legend: `⬜ todo` · `🟨 in progress` · `✅ done` · `⏸ blocked`
 |---|---|---|---|---|---|
 | 1 | `foundation` | Week 1 | Monorepo + scaffolds + initial Prisma + Sentry + CI + deploy pipeline | ✅ written | [2026-04-27-foundation.md](./2026-04-27-foundation.md) |
 | 2 | `auth-and-tenancy` | Week 2 | Login/refresh, JWT guard, tenant middleware, Prisma extension auto-injecting `tenant_id`, super-admin endpoint, `tenant_isolation.spec` | ✅ written | [2026-04-27-auth-tenancy.md](./2026-04-27-auth-tenancy.md) |
-| 3 | `menu-module` | Week 3 | BE CRUD for categories/items/modifier groups + image upload (R2) + Admin UI tables/forms | ⬜ todo | — |
+| 3 | `menu-module` | Week 3 | BE CRUD for categories/items/modifier groups + image upload (R2) + Admin UI tables/forms | ✅ written | [2026-04-29-menu-module.md](./2026-04-29-menu-module.md) |
 | 4 | `pos-order-online` | Week 4 | POS 3-pane layout, modifier sheet, totals via `packages/domain`, optimistic create, online order submit, `window.print()` fallback | ⬜ todo | — |
 | 5 | `offline-sync` | Week 5 | Dexie schemas, sync worker, idempotency BE+FE, 6 acceptance tests, error toasts | ⬜ todo | — |
 | 6 | `escpos-printing` | Week 6 | WebUSB hook, ESC/POS template, hardware test on Xprinter XP-58, reprint, settings page | ⬜ todo | — |
@@ -56,4 +56,4 @@ See spec §13. Notable: Customer/CRM, Branch/multi-store, Inventory, Promotion, 
 |---|---|
 | 2026-04-27 | Initial breakdown into 8 plans. Plan 1 (`foundation`) written. |
 | 2026-04-27 | Plan 2 (`auth-and-tenancy`) written. |
-| 2026-04-27 | Plan 2 (`auth-and-tenancy`) written. |
+| 2026-04-29 | Plan 3 (`menu-module`) written. |
