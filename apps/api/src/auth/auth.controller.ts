@@ -9,7 +9,7 @@ export class AuthController {
 
   @Post("login")
   async login(@Body() body: LoginRequest, @Res() res: Response) {
-    const result = await this.auth.login(body.email, body.password);
+    const result = await this.auth.login(body.email, body.password, body.tenantId);
     res.cookie("refreshToken", result.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

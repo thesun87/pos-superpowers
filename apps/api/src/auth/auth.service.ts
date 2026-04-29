@@ -11,9 +11,9 @@ export class AuthService {
     private jwt: JwtService
   ) {}
 
-  async login(email: string, password: string): Promise<LoginResponse> {
+  async login(email: string, password: string, tenantId: string): Promise<LoginResponse> {
     const user = await this.prisma.user.findFirst({
-      where: { email, isActive: true },
+      where: { email, tenantId, isActive: true },
       include: { tenant: true }
     });
     if (!user) {
