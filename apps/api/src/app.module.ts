@@ -4,10 +4,12 @@ import { PassportModule } from "@nestjs/passport";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { AuthModule } from "./auth/auth.module";
+import { TenantModule } from "./tenant/tenant.module";
 
 @Module({
   imports: [
     PrismaModule,
+    TenantModule,
     PassportModule.register({ defaultStrategy: "jwt" }),
     JwtModule.register({
       secret: process.env.JWT_SECRET || "dev-secret-change-in-prod",
