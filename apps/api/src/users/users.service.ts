@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
 import { TenantService } from "../tenant/tenant.service";
 
 type UserCreateInput = {
@@ -11,8 +12,8 @@ type UserCreateInput = {
 @Injectable()
 export class UsersService {
   constructor(
-    private readonly prisma: { user: { findMany: Function; findUnique: Function; findFirst: Function; create: Function; updateMany: Function } },
-    private readonly tenantService: TenantService
+    private readonly prisma: PrismaService,
+    private readonly tenantService: TenantService,
   ) {}
 
   async findAll(): Promise<unknown[]> {
