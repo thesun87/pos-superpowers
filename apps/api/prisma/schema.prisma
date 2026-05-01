@@ -19,6 +19,10 @@ model Tenant {
   wifiQrPayload String?
   createdAt     DateTime @default(now())
   users         User[]
+  menuCategories  MenuCategory[]
+  menuItems       MenuItem[]
+  modifierGroups  ModifierGroup[]
+  modifierOptions ModifierOption[]
 
   @@map("tenants")
 }
@@ -43,4 +47,94 @@ model User {
 enum Role {
   OWNER
   CASHIER
+}
+
+enum SelectionType {
+  SINGLE
+  MULTIPLE
+}
+
+model MenuCategory {
+  id        String   @id @default(uuid())
+  tenantId  String
+  name      String
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  items  MenuItem[]
+
+  @@index([tenantId, isActive, sortOrder])
+  @@map("menu_categories")
+}
+
+model MenuItem {
+  id          String   @id @default(uuid())
+  tenantId    String
+  categoryId  String
+  name        String
+  basePrice   Int
+  imageUrl    String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant         Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category       MenuCategory            @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  modifierGroups MenuItemModifierGroup[]
+
+  @@index([tenantId, categoryId, isActive])
+  @@map("menu_items")
+}
+
+model ModifierGroup {
+  id            String        @id @default(uuid())
+  tenantId      String
+  name          String
+  selectionType SelectionType
+  minSelect     Int           @default(0)
+  maxSelect     Int           @default(1)
+  isRequired    Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  tenant   Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  options  ModifierOption[]
+  menuItems MenuItemModifierGroup[]
+
+  @@index([tenantId])
+  @@map("modifier_groups")
+}
+
+model ModifierOption {
+  id              String   @id @default(uuid())
+  tenantId        String
+  modifierGroupId String
+  name            String
+  priceDelta      Int      @default(0)
+  isDefault       Boolean  @default(false)
+  sortOrder       Int      @default(0)
+
+  tenant        Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  modifierGroup ModifierGroup @relation(fields: [modifierGroupId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, modifierGroupId, sortOrder])
+  @@map("modifier_options")
+}
+
+model MenuItemModifierGroup {
+  menuItemId      String
+  modifierGroupId String
+  tenantId        String
+  sortOrder       Int    @default(0)
+
+  menuItem      MenuItem      @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  modifierGroup ModifierGroup @relation(fields: [modifierGroupId], references: [id], onDelete: Cascade)
+
+  @@id([menuItemId, modifierGroupId])
+  @@index([tenantId])
+  @@map("menu_item_modifier_groups")
 }
